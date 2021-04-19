@@ -1,0 +1,16 @@
+<odoo>
+    <record id="view_res_partner_kanban_attachment" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+        <field name="mode">extension</field>
+        <field name="arch" type="xml">
+            <div class="oe_kanban_partner_links" position="after">
+                <div style="margin-right:0px;">
+
+                        <field name="folder_icon" widget="html"/>
+
+                </div>
+            </div>
+        </field>
+    </record>
+</odoo>

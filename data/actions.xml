@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--action: Build file structure -->
+    <record id="action_build_structure" model="ir.actions.server">
+        <field name="name">Utwórz strukturę katalogów</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_crm_lead"/>
+        <field name="binding_model_id" ref="model_crm_lead"/>
+        <field name="binding_type">action</field>
+        <field name="state">code</field>
+        <field name="code">record.build_file_structure()</field>
+    </record>
+
+    <record id="action_build_structure" model="ir.actions.server">
+        <field name="name">Przenieś do śmietnika/Przywróć</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_crm_lead"/>
+        <field name="binding_model_id" ref="model_crm_lead"/>
+        <field name="binding_type">action</field>
+        <field name="state">code</field>
+        <field name="code">record.trash()</field>
+    </record>
+
+    <record id="crm_change_location" model="base.automation">
+        <field name="name">Przenieś folder zamówienia</field>
+        <field name="model_id" ref="model_crm_lead"/>
+        <field name="state">code</field>
+        <field name="code">record.change_location()
+        </field>
+        <field name="trigger">on_write</field>
+        <field name="active" eval="True"/>
+        <field name="trigger_field_ids" eval="[(4,ref('crm.field_crm_lead__partner_id'))]"/>
+    </record>
+
+    <record id="crm_name_change" model="base.automation">
+        <field name="name">Zmień nazwę folderu zamówienia</field>
+        <field name="model_id" ref="model_crm_lead"/>
+        <field name="state">code</field>
+        <field name="code">record.change_name()
+        </field>
+        <field name="trigger">on_write</field>
+        <field name="active" eval="True"/>
+        <field name="trigger_field_ids" eval="[(4,ref('crm.field_crm_lead__name'))]"/>
+    </record>
+
+    <record id="action_update_files" model="ir.actions.server">
+        <field name="name">Aktualizuj folder</field>
+        <field name="type">ir.actions.server</field>
+        <field name="binding_model_id" ref="model_crm_lead"/>
+        <field name="binding_type">action</field>
+        <field name="model_id" ref="model_crm_lead"/>
+        <field name="state">code</field>
+        <field name="code">record.update_files()</field>
+    </record>
+
+    <record id="res_change_cat_name" model="base.automation">
+        <field name="name">Zmień nazwę folderu klienta</field>
+        <field name="model_id" ref="model_res_partner"/>
+        <field name="state">code</field>
+        <field name="code">record.change_cat_name()
+        </field>
+        <field name="trigger">on_write</field>
+        <field name="active" eval="True"/>
+        <field name="trigger_field_ids" eval="[(4,ref('base.field_res_partner__name'))]"/>
+    </record>
+
+    <record id="res_change_cat_type" model="base.automation">
+        <field name="name">Zmień typ folderu klienta</field>
+        <field name="model_id" ref="model_res_partner"/>
+        <field name="state">code</field>
+        <field name="code">record.change_type()
+        </field>
+        <field name="trigger">on_write</field>
+        <field name="active" eval="True"/>
+        <field name="trigger_field_ids" eval="[(4,ref('base.field_res_partner__is_company'))]"/>
+    </record>
+
+    <record id="res_change_has_parent" model="base.automation">
+        <field name="name">Podepnij do firmy/odepnij</field>
+        <field name="model_id" ref="model_res_partner"/>
+        <field name="state">code</field>
+        <field name="code">record.change_has_parent()
+        </field>
+        <field name="trigger">on_write</field>
+        <field name="active" eval="True"/>
+        <field name="trigger_field_ids" eval="[(4,ref('base.field_res_partner__parent_id'))]"/>
+    </record>
+
+    <record id="res_create" model="base.automation">
+        <field name="name">Stwórz katalog klienta</field>
+        <field name="model_id" ref="model_res_partner"/>
+        <field name="state">code</field>
+        <field name="code">record.craft()
+        </field>
+        <field name="trigger">on_create</field>
+        <field name="active" eval="True"/>
+    </record>
+
+       <record id="crm_paint" model="base.automation">
+        <field name="name">Pokoloruj</field>
+        <field name="model_id" ref="model_crm_lead"/>
+        <field name="state">code</field>
+        <field name="code">
+record.paint()
+        </field>
+        <field name="trigger">on_create_or_write</field>
+        <field name="active" eval="True"/>
+        <field name="trigger_field_ids" eval="[(4,ref('crm.field_crm_lead__user_id'))]"/>
+    </record>
+
+    <record id="crm_paint_update" model="base.automation">
+        <field name="name">Aktualizuj kolor</field>
+        <field name="model_id" ref="model_res_users"/>
+        <field name="state">code</field>
+        <field name="code">
+leads = env['crm.lead'].search([('user_id', '=', record.id)])
+for lead in leads:
+    lead.write({'color': int(record.user_color_id)})
+        </field>
+        <field name="trigger">on_write</field>
+        <field name="active" eval="True"/>
+        <field name="trigger_field_ids" eval="[(4,ref('attachments_odoo.field_res_users__user_color_id'))]"/>
+    </record>
+
+
+        <record id="crm_prepare_assign" model="base.automation">
+        <field name="name">Przypisz i utwórz strukturę</field>
+        <field name="model_id" ref="model_crm_lead"/>
+        <field name="state">code</field>
+        <field name="code">
+if record.stage_id.id == 2:
+    record.write({'user_id': env.uid})
+    record.build_file_structure()
+if record.stage_id.id == 1:
+    record.write({'user_id': False, "color": 0})
+        </field>
+        <field name="trigger">on_write</field>
+        <field name="active" eval="True"/>
+        <field name="trigger_field_ids" eval="[(4,ref('crm.field_crm_lead__stage_id'))]"/>
+    </record>
+
+            <record id="crm_auto_build" model="base.automation">
+        <field name="name">Utwórz strukturę katalogów automatycznie</field>
+        <field name="model_id" ref="model_crm_lead"/>
+        <field name="state">code</field>
+        <field name="code">
+if record.user_id:
+    record.build_file_structure()
+    record.paint()
+        </field>
+        <field name="trigger">on_create</field>
+        <field name="active" eval="True"/>
+    </record>
+</odoo>

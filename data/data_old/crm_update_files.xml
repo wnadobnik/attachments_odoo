@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_update_files" model="ir.actions.server">
+        <field name="name">Aktualizuj folder</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_crm_lead"/>
+        <field name="state">code</field>
+        <field name="code">record.update_files()</field>
+    </record>
+</odoo>

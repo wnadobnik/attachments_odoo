@@ -1,0 +1,27 @@
+{
+    'name': 'Attachments extension',
+    'version': '13.0.1.1',
+    'author': 'Wojciech Nadobnik',
+    'maintainer': 'WN',
+    'support': 'w.nadobnik@lenasc.pl',
+    'website': 'https://www.lenasc.pl',
+    'price': 0.0,
+    'currency': 'EUR',
+    'category': 'Tools',
+    'license': 'OPL-1',
+    'depends': ['base', 'crm', 'contacts', 'base_automation', 'sale_management', 'prt_mail_messages',
+                'prt_mail_messages_pro', 'prt_mail_messages_draft', 'prt_mail_messages_draft_pro'],
+    'data': [
+        'views/leads.xml',
+        'views/crm_kanban.xml',
+        'views/res_partner_form_view.xml',
+        'views/res_partner_kanban.xml',
+        'views/res_users_form_color.xml',
+        'views/prt_mail.xml',
+        'views/prt_conversation.xml',
+        'data/actions.xml',
+    ],
+    'summary': 'Extend attachment management',
+    'installable': True,
+    'application': True
+}

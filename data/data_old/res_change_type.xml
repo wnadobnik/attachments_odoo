@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_build_structure" model="ir.actions.server">
+        <field name="name">Utwórz strukturę katalogów</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_crm_lead"/>
+        <field name="state">code</field>
+        <field name="code">record.build_file_structure()</field>
+    </record>
+</odoo>

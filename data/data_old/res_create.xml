@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_create" model="base.automation">
+        <field name="name">Stwórz katalog klienta</field>
+        <field name="model_id" ref="model_res_partner"/>
+        <field name="state">code</field>
+        <field name="code">record.craft()
+        </field>
+        <field name="trigger">on_create</field>
+        <field name="active" eval="True"/>
+    </record>
+</odoo>

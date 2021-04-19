@@ -1,0 +1,23 @@
+<odoo>
+    <record id="view_crm_lead_catalogues" model="ir.ui.view">
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <span class="oe_grey" position="replace"/>
+            <field name="probability" position="replace"/>
+            <notebook position="before">
+                <group>
+                    <field name="path"/>
+                    <field name="path_absolute" widget="url"/>
+                    <field name="catalogue_lead"/>
+                </group>
+            </notebook>
+            <page position="before">
+                <page string="Ostatnia oferta">
+                    <field name="last_offer"/>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>

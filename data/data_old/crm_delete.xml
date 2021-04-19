@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="crm_delete" model="base.automation">
+        <field name="name">Wykasuj katalog zamówienia</field>
+        <field name="model_id" ref="model_crm_lead"/>
+        <field name="state">code</field>
+        <field name="code">record.delete()
+        </field>
+        <field name="trigger">on_unlink</field>
+        <field name="active" eval="True"/>
+    </record>
+</odoo>

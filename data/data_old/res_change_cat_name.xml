@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_change_cat_name" model="base.automation">
+        <field name="name">Zmień nazwę folderu klienta</field>
+        <field name="model_id" ref="model_res_partner"/>
+        <field name="state">code</field>
+        <field name="code">record.change_cat_name()
+        </field>
+        <field name="trigger">on_write</field>
+        <field name="active" eval="True"/>
+        <field name="trigger_field_ids" eval="[(4,ref('attachments_odoo.field_res_partner__catalogue'))]"/>
+    </record>
+</odoo>

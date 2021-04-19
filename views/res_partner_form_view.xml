@@ -1,0 +1,17 @@
+<odoo>
+    <record id="view_res_partner_attachment" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="mode">extension</field>
+        <field name="arch" type="xml">
+            <notebook position="before">
+                <group>
+                    <field name="catalogue"/>
+                    <t t-if="record.catalogue_lead != False">
+                        <field name="path_absolute" widget="url"/>
+                    </t>
+                </group>
+            </notebook>
+        </field>
+    </record>
+</odoo>
